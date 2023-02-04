@@ -14,10 +14,18 @@ module.exports = {
     res.render("admin/products", { prods: prods });
   },
 
-  addProduct: function (req, res, next) {
-    const { title } = req.body;
-    const product = new Product(title, "test", 121);
-    product.save();
+  addProduct: async function (req, res, next) {
+    const { title, price, description } = req.body;
+
+    const product = new Product({
+      title: title,
+      price: price,
+      description: description,
+    });
+
+    await product.save();
+    // const product = new Product(title, "test", 121);
+    // product.save();
     res.send("Show product here");
   },
 
